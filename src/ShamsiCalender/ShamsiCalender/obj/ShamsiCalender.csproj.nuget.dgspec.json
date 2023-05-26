@@ -1,38 +1,37 @@
 {
   "format": 1,
   "restore": {
-    "F:\\Phoenix_Main_Project\\ShamsiCalender\\src\\ShamsiCalender\\ShamsiCalender\\ShamsiCalender.csproj": {}
+    "D:\\MyArchitecture\\ShamsiCalender\\src\\ShamsiCalender\\ShamsiCalender\\ShamsiCalender.csproj": {}
   },
   "projects": {
-    "F:\\Phoenix_Main_Project\\ShamsiCalender\\src\\ShamsiCalender\\ShamsiCalender\\ShamsiCalender.csproj": {
+    "D:\\MyArchitecture\\ShamsiCalender\\src\\ShamsiCalender\\ShamsiCalender\\ShamsiCalender.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\Phoenix_Main_Project\\ShamsiCalender\\src\\ShamsiCalender\\ShamsiCalender\\ShamsiCalender.csproj",
+        "projectUniqueName": "D:\\MyArchitecture\\ShamsiCalender\\src\\ShamsiCalender\\ShamsiCalender\\ShamsiCalender.csproj",
         "projectName": "ShamsiCalender",
-        "projectPath": "F:\\Phoenix_Main_Project\\ShamsiCalender\\src\\ShamsiCalender\\ShamsiCalender\\ShamsiCalender.csproj",
-        "packagesPath": "C:\\Users\\M.Gholamizadeh.TAAVSYS\\.nuget\\packages\\",
-        "outputPath": "F:\\Phoenix_Main_Project\\ShamsiCalender\\src\\ShamsiCalender\\ShamsiCalender\\obj\\",
+        "projectPath": "D:\\MyArchitecture\\ShamsiCalender\\src\\ShamsiCalender\\ShamsiCalender\\ShamsiCalender.csproj",
+        "packagesPath": "C:\\Users\\behna\\.nuget\\packages\\",
+        "outputPath": "D:\\MyArchitecture\\ShamsiCalender\\src\\ShamsiCalender\\ShamsiCalender\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\M.Gholamizadeh.TAAVSYS\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\behna\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net6.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://azure.taavserver.ir:81/taav/ERP/_packaging/TaavNuget/nuget/v3/index.json": {}
+          "D:\\MyArchitecture\\ManualPackages": {},
+          "https://azure.taavserver.ir:81/Taav/ERP/_packaging/TaavNuget/nuget/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net6.0": {
+            "targetAlias": "net6.0",
             "projectReferences": {}
           }
         },
@@ -43,8 +42,8 @@
         }
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net6.0": {
+          "targetAlias": "net6.0",
           "dependencies": {
             "Microsoft.Extensions.Configuration": {
               "target": "Package",
@@ -73,8 +72,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -83,7 +81,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.103\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }
