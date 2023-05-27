@@ -14,7 +14,7 @@ namespace ShamsiCalender.Tools
                                .Build();
 
             var instance = Activator.CreateInstance(typeof(T));
-            holidays.Bind(typeof(T).GetType().Name, instance);
+            holidays.Bind(typeof(T).Name, instance);
             return (instance as T)!;
         }
 
@@ -47,7 +47,36 @@ namespace ShamsiCalender.Tools
         public static DateTime ParseExactToDateTime(string dateTimeStringFormat, string culture)
         {
             CultureInfo cultureInfo = new CultureInfo(culture);
-            return DateTime.ParseExact(dateTimeStringFormat, "yyyy/mm/dd", cultureInfo);
+            return DateTime.ParseExact(dateTimeStringFormat, "yyyy/MM/dd", cultureInfo);
+        }
+
+        public static void ConsoleWriteLine(
+            string message,
+            ConsoleColor consoleColor = ConsoleColor.White)
+        {
+            Console.ResetColor();
+            Console.ForegroundColor = consoleColor;
+            Console.WriteLine(message);
+            Console.ResetColor();
+        }
+        public static void ConsoleWrite(
+             string message,
+             ConsoleColor consoleColor = ConsoleColor.White)
+        {
+            Console.ResetColor();
+            Console.ForegroundColor = consoleColor;
+            Console.Write(message);
+            Console.ResetColor();
+        }
+        public static void SetForegroundConsoleColor(
+           ConsoleColor consoleColor = ConsoleColor.White)
+        {
+            Console.ForegroundColor = consoleColor;
+        }
+        public static void SetBackgroundConsoleColor(
+           ConsoleColor consoleColor = ConsoleColor.White)
+        {
+            Console.BackgroundColor = consoleColor;
         }
     }
 }
