@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using ShamsiCalender.Tools;
 using ShamsiCalender.Tools.Configurations;
 using System.Globalization;
 using System.Reflection.Metadata.Ecma335;
@@ -11,57 +12,58 @@ while (true)
                        .AddEnvironmentVariables()
                        .AddCommandLine(args)
                        .Build();
-    var hijriHolidays = new HijriHolidays();
-    holidays.Bind(nameof(HijriHolidays), hijriHolidays);
+    var hijriHolidays =
+        Extensions.GetAllHolidaysForType<HijriHolidays>(args);
 
-    var shamsiHolidays = new ShamsiHolidays();
-    holidays.Bind(nameof(ShamsiHolidays), shamsiHolidays);
-
-    CultureInfo arCult = new CultureInfo("ar-SA");
-    TimeZoneInfo iranTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Iran Standard Time");
+    var shamsiHolidays =
+        Extensions.GetAllHolidaysForType<ShamsiHolidays>(args);
 
     var input = Console.ReadLine();
-    var inputDateTimeFormat = input!.Split("-");
-    var desiredDateTime =
-        new DateTime(
-            int.Parse(inputDateTimeFormat[0]),
-            int.Parse(inputDateTimeFormat[1]),
-            int.Parse(inputDateTimeFormat[2]),
-            0, 0, 0, 0);
+    var desiredDateTime = input!.GetDateTimeFormat();
 
-    DateTime iranDateTime =
-             TimeZoneInfo.ConvertTime(desiredDateTime, iranTimeZone);
+    DateTime georgianDateTimeWithIranTimeZone =
+             Extensions.ConvertTimeWithTimeZone(desiredDateTime, "Iran Standard Time");
 
     HijriCalendar hijriCalendar = new HijriCalendar();
-    int hijriYear1 = hijriCalendar.GetYear(iranDateTime);
-    int hijriMonth1 = hijriCalendar.GetMonth(iranDateTime);
-    int hijriDay1 = hijriCalendar.GetDayOfMonth(iranDateTime);
+    int hijriYear = hijriCalendar.GetYear(georgianDateTimeWithIranTimeZone);
+    int hijriMonth = hijriCalendar.GetMonth(georgianDateTimeWithIranTimeZone);
+    int hijriDay = hijriCalendar.GetDayOfMonth(georgianDateTimeWithIranTimeZone);
 
-    var hijriDateFormat = $"{hijriYear1}/{(hijriMonth1 < 10 ? $"0{hijriMonth1}" : hijriMonth1)}/{(hijriDay1 < 10 ? $"0{hijriDay1}" : hijriDay1)}";
-    var test2 = DateTime.ParseExact(hijriDateFormat, "yyyy/MM/dd", arCult);
-    if ((test2 - iranDateTime).TotalDays > 0)
+    var hijriDateFormat =
+        Extensions.GetDateTimeStringFormat(
+                   hijriYear,
+                   hijriMonth,
+                   hijriDay);
+
+    var georgianDateTimeWithArabCulture =
+        Extensions.ParseExactToDateTime(hijriDateFormat, "ar-SA");
+
+    if ((georgianDateTimeWithArabCulture - georgianDateTimeWithIranTimeZone)
+        .TotalDays > 0)
     {
-        hijriDay1 = hijriDay1 - 2;
+        hijriDay = hijriDay - 2;
     }
     else
     {
-        hijriDay1 = hijriDay1 - 1;
+        hijriDay = hijriDay - 1;
     }
-    var hijriDateFormat2 = $"{(hijriMonth1 < 10 ? $"0{hijriMonth1}" : hijriMonth1)}/{(hijriDay1 < 10 ? $"0{hijriDay1}" : hijriDay1)}";
+
+    var hijriDateFormatWithMonthAndDay =
+        $"{(hijriMonth < 10 ? $"0{hijriMonth}" : hijriMonth)}/{(hijriDay < 10 ? $"0{hijriDay}" : hijriDay)}";
 
 
     var shamsiCalender = new PersianCalendar();
-    var shamsiYear = shamsiCalender.GetYear(iranDateTime);
-    var shamsiMonth = shamsiCalender.GetMonth(iranDateTime);
-    var shamsiDay = shamsiCalender.GetDayOfMonth(iranDateTime);
+    var shamsiYear = shamsiCalender.GetYear(georgianDateTimeWithIranTimeZone);
+    var shamsiMonth = shamsiCalender.GetMonth(georgianDateTimeWithIranTimeZone);
+    var shamsiDay = shamsiCalender.GetDayOfMonth(georgianDateTimeWithIranTimeZone);
     var shamsiMonthNewFormat = shamsiMonth < 10 ? $"0{shamsiMonth}" : $"{shamsiMonth}";
     var shamsiDayNewFormat = shamsiDay < 10 ? $"0{shamsiDay}" : $"{shamsiDay}";
     var shamsiFormat = $"{shamsiMonthNewFormat}/{shamsiDayNewFormat}";
 
 
 
-    Console.WriteLine(hijriDateFormat2 + Environment.NewLine);
-    if (hijriHolidays.Holidays.Any(_ => _ == hijriDateFormat2) || shamsiHolidays.Holidays.Any(_ => _ == shamsiFormat))
+    Console.WriteLine(hijriDateFormatWithMonthAndDay + Environment.NewLine);
+    if (hijriHolidays.Holidays.Any(_ => _ == hijriDateFormatWithMonthAndDay) || shamsiHolidays.Holidays.Any(_ => _ == shamsiFormat))
     {
         Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine("This is a holiday !!!" + Environment.NewLine);
